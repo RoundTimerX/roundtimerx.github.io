@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoundTimerX — Interval timer for team sports and personal workouts</title>
+  <meta name="description" content="RoundTimerX is an interval timer for team sports and personal workouts. Customizable round formats, background service, audio cues, and more. Available on Android.">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="logo.svg">
+  <meta name="theme-color" content="#FE9900">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://roundtimerx.github.io/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://roundtimerx.github.io/">
+  <meta property="og:site_name"   content="RoundTimerX">
+  <meta property="og:title"       content="RoundTimerX — Interval timer for team sports and personal workouts">
+  <meta property="og:description" content="Build custom round sequences with audio cues, background timing, and a preset library. Precision interval timer for Android.">
+  <meta property="og:image"       content="https://roundtimerx.github.io/social-preview.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="RoundTimerX — Interval timer for team sports and personal workouts">
+  <meta name="twitter:description" content="Build custom round sequences with audio cues, background timing, and a preset library. Precision interval timer for Android.">
+  <meta name="twitter:image"       content="https://roundtimerx.github.io/social-preview.png">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RoundTimerX",
+    "operatingSystem": "Android",
+    "applicationCategory": "SportsApplication",
+    "description": "Interval timer for team sports and personal workouts. Build custom round sequences with audio cues, background timing, and a preset library.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "url": "https://roundtimerx.github.io/"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>(function(){var s=localStorage.getItem('theme')||( window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',s);})();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root, [data-theme="dark"] {
+      --bg:            #1B1B1B;
+      --bg-card:       #242323;
+      --bg-elevated:   #2E2D2E;
+      --orange:        #FE9900;
+      --orange-dim:    #c97a00;
+      --orange-subtle: rgba(254, 153, 0, 0.12);
+      --text:          #E8E7E4;
+      --text-muted:    #9A9896;
+      --border:        #363535;
+      --radius:        14px;
+      --radius-sm:     8px;
+    }
+
+    [data-theme="light"] {
+      --bg:            #F5F4F1;
+      --bg-card:       #FFFFFF;
+      --bg-elevated:   #ECEAE7;
+      --orange:        #D98000;
+      --orange-dim:    #B36800;
+      --orange-subtle: rgba(217, 128, 0, 0.10);
+      --text:          #1B1B1B;
+      --text-muted:    #706E6B;
+      --border:        #DDDBD7;
+      --radius:        14px;
+      --radius-sm:     8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    nav img { width: 32px; height: 32px; border-radius: 7px; }
+    .theme-toggle {
+      margin-left: auto;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--text-muted); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    [data-theme="dark"]  .icon-sun  { display: flex; }
+    [data-theme="dark"]  .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: flex; }
+    nav .wordmark {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    nav .wordmark span { color: var(--orange); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 60px 16px 72px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      margin: 0 auto 28px;
+      display: block;
+      box-shadow: 0 8px 40px rgba(254, 153, 0, 0.2);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    .play-badge-wrap { display: inline-block; pointer-events: none; cursor: default; }
+    .play-badge-wrap img { display: block; height: 64px; width: auto; border-radius: 10px; }
+
+    /* ── Section common ── */
+    section { padding: 72px 16px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* ── Use cases ── */
+    .use-cases { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .use-case-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .use-case-card .icon {
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .use-case-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .use-case-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Features ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: #4a4949; }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--orange-subtle);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--orange);
+    }
+    .feature-icon svg { width: 22px; height: 22px; stroke-width: 1.75; }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Screenshots ── */
+    .screenshots { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .screenshots-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 700px;
+    }
+    .screenshots-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    [data-theme="light"] .screenshots-gallery img {
+      border-color: var(--border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    @media (max-width: 600px) {
+      .screenshots-gallery { max-width: 100%; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-brand img { width: 28px; height: 28px; border-radius: 6px; opacity: 0.8; }
+    .footer-brand span { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+    .footer-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .footer-meta .dot { opacity: 0.3; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 16px 56px; }
+      .hero-icon { width: 80px; height: 80px; border-radius: 18px; }
+      section { padding: 56px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <img src="logo.svg" alt="RoundTimerX icon">
+    <span class="wordmark">Round<span>Timer</span>X</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">
+      <i data-lucide="sun" class="icon-sun"></i>
+      <i data-lucide="moon" class="icon-moon"></i>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="padding-top:40px; padding-bottom:80px; max-width:700px; margin:0 auto; text-align:center;">
+    <img src="logo.svg" alt="RoundTimerX" class="hero-icon">
+    <h1>Interval timer for<br><span>team sports &amp; workouts</span></h1>
+    <p>Build custom round sequences with audio cues, background timing, and a preset library — so you focus on the activity, not the clock.</p>
+    <div class="hero-actions">
+      <a class="play-badge-wrap" href="#" aria-disabled="true" tabindex="-1">
+        <img src="google-play-badge.svg"
+             alt="Get it on Google Play">
+      </a>
+    </div>
+  </section>
+
+  <!-- Use cases -->
+  <section class="use-cases">
+    <div class="section-inner">
+      <p class="section-label">Use cases</p>
+      <h2 class="section-title">Built for any timed activity</h2>
+      <p class="section-subtitle">Whether you're coaching a game or running a solo workout, RoundTimerX handles the structure so you handle the action.</p>
+      <div class="use-case-grid">
+        <div class="use-case-card">
+          <span class="icon">🏀</span>
+          <h3>Basketball</h3>
+          <p>Quarters, halftime, timeouts, and warmup — configured exactly to your league's ruleset.</p>
+        </div>
+        <div class="use-case-card">
+          <span class="icon">⚽</span>
+          <h3>Other team sports</h3>
+          <p>Soccer, volleyball, hockey — model any game format with named periods and break sequences.</p>
+        </div>
+        <div class="use-case-card">
+          <span class="icon">🔥</span>
+          <h3>Personal workouts</h3>
+          <p>HIIT, circuits, or warm-up routines — text-to-speech announces each exercise as it starts.</p>
+        </div>
+        <div class="use-case-card">
+          <span class="icon">⏱</span>
+          <h3>Any timed activity</h3>
+          <p>If it involves timed rounds or stages, you can model it in RoundTimerX.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything a timer should do</h2>
+      <p class="section-subtitle">RoundTimerX goes beyond a simple countdown — it manages the full structure of your activity.</p>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="layers"></i></div>
+          <h3>Hierarchical round formats</h3>
+          <p>Build sequences of named rounds, short breaks, long breaks, and warmup steps. Group them and nest them — the structure mirrors your actual activity.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="clock"></i></div>
+          <h3>All time info at a glance</h3>
+          <p>See current period time, total active time, and full elapsed time simultaneously in one view, along with an overall progress bar and the next upcoming step.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="activity"></i></div>
+          <h3>Runs in the background</h3>
+          <p>A persistent foreground service keeps the timer running accurately when you switch to another app or turn off the screen. Never miss a transition.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="volume-2"></i></div>
+          <h3>Audio announcements</h3>
+          <p>Configurable buzzer and whistle sounds at period transitions. Text-to-speech announces round names so you always know what's next without looking at the screen.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="alarm-clock"></i></div>
+          <h3>Scheduled start</h3>
+          <p>Set the timer to start automatically at a specific future time or after a countdown delay. Useful for coordinated team activities.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="pencil-ruler"></i></div>
+          <h3>Preset Designer</h3>
+          <p>Create, name, and save unlimited custom timer routines. Load them instantly, duplicate and adjust for variations, or export to share with others.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="screenshots">
+    <div class="section-inner">
+      <p class="section-label">Screenshots</p>
+      <h2 class="section-title">See it in action</h2>
+      <p class="section-subtitle">RoundTimerX on Android — dark, focused, built for any sport or workout.</p>
+      <div class="screenshots-gallery">
+        <img src="screenshots/play_store/01_mid_game.png" alt="Timer running during 1st Quarter">
+        <img src="screenshots/play_store/02_preset_designer.png" alt="Preset Designer with period hierarchy">
+        <img src="screenshots/play_store/03_routines.png" alt="Select Routine sheet">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="">
+        <span>RoundTimerX</span>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026 RoundTimerX</span>
+        <span class="dot">·</span>
+        <a href="privacy.html" style="color:var(--text-muted);">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    });
+  </script>
+</body>
+</html>

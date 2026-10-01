@@ -167,8 +167,9 @@
       justify-content: center;
       align-items: center;
     }
-    .play-badge-wrap { display: inline-block; pointer-events: none; cursor: default; }
+    .play-badge-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; cursor: default; }
     .play-badge-wrap img { display: block; height: 64px; width: auto; border-radius: 10px; }
+    .coming-soon { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.02em; }
 
     /* ── Section common ── */
     section { padding: 72px 16px; }
@@ -288,6 +289,32 @@
       .screenshots-gallery { max-width: 100%; }
     }
 
+    /* ── Support ── */
+    .support {
+      text-align: center;
+      padding: 56px 16px;
+    }
+    .support p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .bmc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFDD00;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: -0.01em;
+    }
+    .bmc-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
     /* ── Footer ── */
     footer {
       padding: 40px 16px;
@@ -345,10 +372,10 @@
     <h1>Interval timer for<br><span>team sports &amp; workouts</span></h1>
     <p>Build custom round sequences with audio cues, background timing, and a preset library — so you focus on the activity, not the clock.</p>
     <div class="hero-actions">
-      <a class="play-badge-wrap" href="#" aria-disabled="true" tabindex="-1">
-        <img src="google-play-badge.svg"
-             alt="Get it on Google Play">
-      </a>
+      <div class="play-badge-wrap">
+        <img src="google-play-badge.svg" alt="Get it on Google Play">
+        <p class="coming-soon">Coming soon to Google Play</p>
+      </div>
     </div>
   </section>
 
@@ -443,6 +470,14 @@
         <img src="screenshots/play_store/03_routines.png" alt="Select Routine sheet">
       </div>
     </div>
+  </section>
+
+  <!-- Support -->
+  <section class="support">
+    <p>If RoundTimerX saves you time on the court or in the gym, consider supporting its development.</p>
+    <a class="bmc-btn" href="https://buymeacoffee.com/aleksanderis" target="_blank" rel="noopener">
+      ☕ Buy me a coffee
+    </a>
   </section>
 
   <!-- Footer -->

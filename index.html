@@ -270,8 +270,8 @@
     .screenshots-gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 700px;
+      gap: 20px;
+      max-width: 960px;
     }
     .screenshots-gallery img {
       width: 100%;
@@ -285,8 +285,8 @@
       border-color: var(--border);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     }
-    @media (max-width: 600px) {
-      .screenshots-gallery { max-width: 100%; }
+    @media (max-width: 720px) {
+      .screenshots-gallery { max-width: 100%; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     }
 
     /* ── Lightbox ── */
@@ -302,7 +302,7 @@
     }
     .lightbox.open { display: flex; }
     .lightbox img {
-      max-width: min(360px, 92vw);
+      max-width: min(420px, 92vw);
       max-height: 92vh;
       width: auto;
       height: auto;
@@ -502,9 +502,12 @@
       <h2 class="section-title">See it in action</h2>
       <p class="section-subtitle">RoundTimerX on Android — dark, focused, built for any sport or workout.</p>
       <div class="screenshots-gallery">
-        <img src="screenshots/play_store/01_mid_game.png" alt="Timer running during 1st Quarter" data-lightbox>
-        <img src="screenshots/play_store/02_preset_designer.png" alt="Preset Designer with period hierarchy" data-lightbox>
-        <img src="screenshots/play_store/03_routines.png" alt="Select Routine sheet" data-lightbox>
+        <img src="screenshots/play_store/01_mid_game.png" alt="Basketball timer running during the 1st quarter, with progress, next step and finish time" data-lightbox>
+        <img src="screenshots/play_store/02_any_activity.png" alt="Tabata work interval counting down" data-lightbox>
+        <img src="screenshots/play_store/03_preset_designer.png" alt="Preset Designer showing a basketball game with nested periods" data-lightbox>
+        <img src="screenshots/play_store/04_routines.png" alt="Select Routine sheet with Basketball, Futsal and Tabata presets" data-lightbox>
+        <img src="screenshots/play_store/05_scheduled_start.png" alt="Schedule start dialog with 5, 10 and 15 minute options and an exact start time" data-lightbox>
+        <img src="screenshots/play_store/06_background_notification.png" alt="Timer notification with Pause, Next and Exit controls" data-lightbox>
       </div>
     </div>
   </section>

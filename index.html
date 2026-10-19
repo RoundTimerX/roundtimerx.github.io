@@ -166,9 +166,12 @@
       gap: 12px;
       justify-content: center;
       align-items: center;
+      position: relative;
+      z-index: 10;
     }
     .play-badge-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; cursor: default; }
     .play-badge-wrap img { display: block; height: 64px; width: auto; border-radius: 10px; }
+    .play-badge-wrap a { pointer-events: auto; }
     .coming-soon { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.02em; }
 
     /* ── Section common ── */
@@ -405,13 +408,13 @@
 
   <!-- Hero -->
   <section class="hero" style="padding-top:40px; padding-bottom:80px; max-width:700px; margin:0 auto; text-align:center;">
-    <img src="logo.svg" alt="RoundTimerX" class="hero-icon">
+    <img src="logo.svg" alt="RoundTimerX" class="hero-icon" />
     <h1>Interval timer for<br><span>team sports &amp; workouts</span></h1>
     <p>Build custom round sequences with audio cues, background timing, and a preset library — so you focus on the activity, not the clock.</p>
     <div class="hero-actions">
       <div class="play-badge-wrap">
         <a href="https://play.google.com/store/apps/details?id=com.callia.roundtimerx">
-          <img src="google-play-badge.svg" alt="Get it on Google Play">
+          <img src="google-play-badge.svg" alt="Get it on Google Play" />
         </a>
       </div>
     </div>
